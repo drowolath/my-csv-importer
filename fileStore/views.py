@@ -11,7 +11,8 @@ class FileUpload(View):
 
     def post(self, request, *args, **kwargs):
         filename = request.POST['filename']
-        csv_file = request.FILE['file'].read()
+        filepath = request.POST['filepath']
+        csv_file = request.FILES['file'].read()
 
         # if one parameter is missing
         # consider it an invalid request
