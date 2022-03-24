@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      >
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      >
+    <title>My CSV file importer</title>
+    <link rel="stylesheet" href="{% static 'fileStore/css/style.css' %}">
+</head>
+<body>
+  <div class="col-lg-6 col-md-6" style="margin: 0 auto; display: block; margin-top: 100px;">
+    <form enctype="multipart/form-data" method="POST" action="">{% csrf_token %}
+      <div class="form-group">
+        <label>Select file to upload.</label>
+        <input type="file" class="form-control" id="fileupload" placeholder="Select file">
+      </div>
+      <input type="submit" value="Upload" id="submit" class="btn btn-primary">     
+    </form>
+    <div id="uploaded_files"></div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="{% static 'fileStore/js/script.js' %}"></script>
+</body>
+</html>
