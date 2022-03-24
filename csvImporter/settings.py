@@ -27,7 +27,11 @@ SECRET_KEY = 'django-insecure-ubr6@m_^!(rsg=&w@lxbyog=ui4u4-8$hh@8f5nw*ezwh9mr!s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'my-csv-importer.herokuapp.com'
+]
 
 
 # Application definition
