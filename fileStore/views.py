@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic import View
+from . import models
 
 
 class FileUpload(View):
@@ -17,16 +18,34 @@ class FileUpload(View):
         csv_file = request.FILES['file'].read()
 
         if filepath == 'null':  # first chunk
-            with open(f'media/{filename}', 'wb+') as f:
+            path = f'media/{filename}'
+            with open(path, 'wb+') as f:
                 f.write(csv_file)
+            models.File.objects.get_or_create(
+                path=path,
+                name=filename,
+                complete=bool(int(stop))
+            )
             if int(stop):
-                return JsonResponse({'message': 'Upload successfull'})
-            return JsonResponse({'message': filename})
+                return JsonResponse(
+                    {'message': 'Uploaded successfully', 'filepath': path}
+                )
+            return JsonResponse({'filepath': filename})
         else:
-            path = f'media/{filepath}'
-            with open(f'media/{filename}', 'ab+') as f:
-                f.write(csv_file)
-            if int(stop):
-                return JsonResponse({'message': 'Upload successfull'})
-            return JsonResponse({'message': filename})
+            path = f'media/{filename}'
+            obj = models.File.objects.get(path=path)
+            if not obj.complete:
+                with open(f'media/{filename}', 'ab+') as f:
+                    f.write(csv_file)
+                if int(stop):
+                    obj.complete = True
+                    obj.save()
+                    return JsonResponse(
+                        {'message': 'Uploaded successfully', 'filepath': obj.path}
+                    )
+                return JsonResponse({'filepath': obj.path})
+            else:
+                return JsonResponse(
+                    {"message": "File is already complete"}
+                )
             
