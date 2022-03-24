@@ -132,4 +132,13 @@ MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+BROKER_URL = (
+    "amqps://mspzxgvh:7a7kuounE5J8HNq15l20rJlh0qXXqojK@hornet.rmq.cloudamqp.com/mspzxgvh"
+    )
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'
+CELERY_CREATE_MISSING_QUEUES = True
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
