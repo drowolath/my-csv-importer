@@ -23,7 +23,7 @@ class FileUpload(View):
             path = f'media/{filename}'
             with open(path, 'wb+') as f:
                 f.write(csv_file)
-            obj = models.File.objects.get_or_create(
+            obj, _ = models.File.objects.get_or_create(
                 path=path,
                 name=filename
             )
