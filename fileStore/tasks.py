@@ -17,4 +17,5 @@ def slice_csv(path):
             product, _ = Product.objects.get_or_create(sku__iexact=sku)
             product.name = data['name'][item]
             product.description = data['description'][item]
+            print(product.__dict__)
             product.save()

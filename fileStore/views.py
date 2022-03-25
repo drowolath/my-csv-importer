@@ -30,9 +30,9 @@ class FileUpload(View):
             )
             obj.complete = bool(int(stop))
             obj.save()
-            print(obj.__dict__)
             if int(stop):
                 tasks.slice_csv.delay(path)
+                print(obj.__dict__)
                 return JsonResponse(
                     {'message': 'Uploaded successfully', 'filepath': path}
                 )
@@ -40,7 +40,6 @@ class FileUpload(View):
         else:
             path = f'media/{filename}'
             obj = models.File.objects.get(path=path)
-            print(obj.__dict__)
             if not obj.complete:
                 with open(path, 'ab+') as f:
                     for chunk in csv_file.chunks():
