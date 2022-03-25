@@ -27,9 +27,9 @@ class FileUpload(View):
                 path=path,
                 name=filename
             )
+            obj.complete = int(stop)
+            obj.save()
             if int(stop):
-                obj.complete = True
-                obj.save()
                 df = pandas.read_csv(path)
                 limit = 0
                 while limit <= df.shape[0]:
