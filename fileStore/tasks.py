@@ -10,12 +10,13 @@ def slice_csv(path):
     df = pandas.read_csv(path)
     limit = 0
     while limit <= df.shape[0]:
-        print(limit, limit+100)
         data = df[limit:limit+100].to_json()
         limit += 100
         data = json.loads(data)
         for item, sku in data['sku'].items():
-            product, created = Product.objects.get_or_create(sku__iexact=sku)
+            print(item, sku)
+            sku = sku.lower()
+            product, created = Product.objects.get_or_create(sku=sku)
             if created:
                 product.name = data['name'][item]
                 product.description = data['description'][item]
