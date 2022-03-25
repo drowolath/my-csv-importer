@@ -32,12 +32,7 @@ class FileUpload(View):
             obj.save()
             print(obj.__dict__)
             if int(stop):
-                df = pandas.read_csv(path)
-                limit = 0
-                while limit <= df.shape[0]:
-                    data = df[limit:limit+100].to_json()
-                    tasks.store_products.delay(data)
-                    limit += 100
+                tasks.store_products.delay(path)
                 return JsonResponse(
                     {'message': 'Uploaded successfully', 'filepath': path}
                 )
@@ -54,13 +49,7 @@ class FileUpload(View):
                     obj.complete = True
                     obj.save()
                     print(obj.__dict__)
-                    df = pandas.read_csv(path)
-                    limit = 0
-                    while limit <= df.shape[0]:
-                        print(limit, limit+100)
-                        data = df[limit:limit+100].to_json()
-                        tasks.store_products.delay(data)
-                        limit += 100
+                    tasks.store_products.delay(path)
                     return JsonResponse(
                         {'message': 'Uploaded successfully', 'filepath': obj.path}
                     )
