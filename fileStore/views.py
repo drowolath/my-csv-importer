@@ -53,9 +53,11 @@ class FileUpload(View):
                 if int(stop):
                     obj.complete = True
                     obj.save()
+                    print(obj.__dict__)
                     df = pandas.read_csv(path)
                     limit = 0
                     while limit <= df.shape[0]:
+                        print(limit, limit+100)
                         data = df[limit:limit+100].to_json()
                         tasks.store_products.delay(data)
                         limit += 100
