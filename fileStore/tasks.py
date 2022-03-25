@@ -6,6 +6,7 @@ import json
 
 @celery_app.task(name="filestore.storeproduct", queue="products")
 def slice_csv(path):
+    print(path)
     df = pandas.read_csv(path)
     limit = 0
     while limit <= df.shape[0]:
