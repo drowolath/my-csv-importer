@@ -17,7 +17,7 @@ class FileUpload(View):
         filepath = request.POST['filepath']
         nextchunk = request.POST['nextchunk']
         stop = request.POST['stop']
-        csv_file = request.FILES['file'].read()
+        csv_file = request.FILES['file']
 
         if filepath == 'null':  # first chunk
             path = f'media/{filename}'
@@ -27,7 +27,7 @@ class FileUpload(View):
                 path=path,
                 name=filename
             )
-            obj.complete = int(stop)
+            obj.complete = bool(int(stop))
             obj.save()
             print(obj.__dict__)
             if int(stop):
