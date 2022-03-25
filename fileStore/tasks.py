@@ -15,8 +15,13 @@ def slice_csv(path):
         limit += 100
         data = json.loads(data)
         for item, sku in data['sku'].items():
-            product, _ = Product.objects.get_or_create(sku__iexact=sku)
-            product.name = data['name'][item]
-            product.description = data['description'][item]
-            print(product.__dict__)
-            product.save()
+            product, created = Product.objects.get_or_create(sku__iexact=sku)
+            if created:
+                product.name = data['name'][item]
+                product.description = data['description'][item]
+                product.save()
+            else:
+                Product.objects.filter(sku=product.sku).update(
+                    name=data['name'][item],
+                    description=data['description'][item]
+                )
