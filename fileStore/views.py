@@ -32,7 +32,7 @@ class FileUpload(View):
             obj.save()
             print(obj.__dict__)
             if int(stop):
-                tasks.store_products.delay(path)
+                tasks.slice_csv.delay(path)
                 return JsonResponse(
                     {'message': 'Uploaded successfully', 'filepath': path}
                 )
@@ -49,7 +49,7 @@ class FileUpload(View):
                     obj.complete = True
                     obj.save()
                     print(obj.__dict__)
-                    tasks.store_products.delay(path)
+                    tasks.slice_csv.delay(path)
                     return JsonResponse(
                         {'message': 'Uploaded successfully', 'filepath': obj.path}
                     )
