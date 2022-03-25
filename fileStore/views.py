@@ -29,6 +29,7 @@ class FileUpload(View):
             )
             obj.complete = int(stop)
             obj.save()
+            print(obj.__dict__)
             if int(stop):
                 df = pandas.read_csv(path)
                 limit = 0
@@ -43,6 +44,7 @@ class FileUpload(View):
         else:
             path = f'media/{filename}'
             obj = models.File.objects.get(path=path)
+            print(obj.__dict__)
             if not obj.complete:
                 #with open(f'media/{filename}', 'ab+') as f:
                 #    f.write(csv_file)
