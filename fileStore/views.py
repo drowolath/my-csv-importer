@@ -22,8 +22,7 @@ class FileUpload(View):
         if filepath == 'null':  # first chunk
             path = f'media/{filename}'
             with open(path, 'wb+') as f:
-                for chunk in csv_file.chunks():
-                    f.write(chunk)
+                f.write(csv_file.read())
             obj, _ = models.File.objects.get_or_create(
                 path=path,
                 name=filename
@@ -42,8 +41,7 @@ class FileUpload(View):
             obj = models.File.objects.get(path=path)
             if not obj.complete:
                 with open(path, 'ab+') as f:
-                    for chunk in csv_file.chunks():
-                        f.write(chunk)
+                    f.write(csv_file.read())
                 if int(stop):
                     obj.complete = True
                     obj.save()
