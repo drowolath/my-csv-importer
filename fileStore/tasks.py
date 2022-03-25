@@ -11,7 +11,7 @@ def process(data):
         name = data['name'][item]
         description = data['description'][item]
         active = bool(
-            int(data.get('active', False)[item])
+            int(data.get('active', '0')[item])
         )
         product, created = Product.objects.get_or_create(sku=sku)
         if created:
