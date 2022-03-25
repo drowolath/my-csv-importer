@@ -1,5 +1,5 @@
 Django==4.0.3
-celery
+celery==5.2.3
 psycopg2==2.9.3
 gunicorn==20.1.0
 pandas==1.4.1

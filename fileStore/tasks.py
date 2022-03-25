@@ -1,10 +1,10 @@
-from celery.decorators import task
+from csvImporter import celery_app
 from .models import Product
 
 import json
 
 
-@task(name="filestore.storeproduct", queue="products")
+@celery_app.task(name="filestore.storeproduct", queue="products")
 def store_products(data):
     """data is the result of.to_json()
     on a pandas dataframe
